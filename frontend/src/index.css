@@ -1,0 +1,356 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global stylesheet. Platform-specific map symbols live in platform.css. */
+
+/* IBM Plex Sans (interface) and IBM Plex Mono (figures, identifiers), SIL Open Font License 1.1,
+   self-hosted in public/fonts: no request to a font CDN (no visitor address sent to a third
+   party) and a CSP limited to font-src 'self'. Latin + Latin Extended. */
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-600-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-600-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ------------------------------------------------------------------ layout helpers
+   Split views (side panel + map). Below lg the columns stack and the whole view scrolls:
+   the map comes first with a fixed height, the panel follows. From lg each column scrolls
+   on its own. Page = a full-height view that scrolls as a whole. */
+@layer components {
+  .split-view {
+    @apply grid h-full min-h-0 grid-cols-1 overflow-y-auto lg:overflow-hidden;
+  }
+  .split-pane {
+    @apply lg:min-h-0 lg:overflow-y-auto;
+  }
+  .split-map {
+    @apply relative order-first h-[60vh] min-h-[320px] lg:order-none lg:h-auto lg:min-h-[480px];
+  }
+  .page {
+    @apply h-full min-h-0 overflow-y-auto p-3 sm:p-4;
+  }
+}
+
+/* ------------------------------------------------------------------ base */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #070b10;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile browsers: follow the visible viewport (address bar shown or hidden). */
+@supports (height: 100dvh) {
+  #root {
+    height: 100dvh;
+  }
+}
+
+/* Keyboard focus is always visible (mouse clicks keep the plain look). */
+:focus-visible {
+  outline: 2px solid #2dd4bf;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(45, 212, 191, 0.35);
+}
+
+/* Thin dark scrollbars (panels, tables, tab bars). */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1c2a38 transparent;
+}
+
+/* ------------------------------------------------------------------ map (Leaflet) */
+.leaflet-container {
+  background: #070b10;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.leaflet-tooltip.tactical-tip {
+  background: #0d141c;
+  color: #e2e8f0;
+  border: 1px solid #1c2a38;
+  border-radius: 2px;
+  box-shadow: none;
+  font-size: 11px;
+}
+
+.tactical-popup .leaflet-popup-content-wrapper,
+.tactical-popup .leaflet-popup-tip {
+  background: #0d141c;
+  color: #e2e8f0;
+  border: 1px solid #1c2a38;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+.leaflet-control-layers,
+.leaflet-control-scale-line {
+  background: rgba(13, 20, 28, 0.92) !important;
+  color: #cbd5e1 !important;
+  border-color: #1c2a38 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(7, 11, 16, 0.75) !important;
+  color: #64748b !important;
+  font-size: 9px;
+}
+
+.leaflet-control-attribution a {
+  color: #94a3b8 !important;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+}
+
+/* Turn the light OSM basemap into a dark tactical one (no API key needed). */
+.tactical-tiles {
+  filter: invert(1) hue-rotate(180deg) brightness(calc(0.85 * var(--tile-brightness, 1))) contrast(0.9) saturate(0.4);
+}
+
+/* Satellite basemaps (EOX, NASA): brightness set by the map settings. */
+.visual-tiles {
+  filter: brightness(var(--tile-brightness, 1));
+}
+
+/* Custom tile sources: blending chosen per source (Administration › Sources personnalisées). */
+.blend-screen { mix-blend-mode: screen; }
+.blend-multiply { mix-blend-mode: multiply; }
+.blend-lighten { mix-blend-mode: lighten; }
+
+/* ------------------------------------------------------------------ documents (screen + paper)
+   <pre class="report-paper"> = signed plain-text document; <article class="report-paper"> =
+   structured report (header, sections, tables, seal). */
+.report-paper {
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 24px 28px;
+  max-width: 60rem;
+}
+pre.report-paper {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.report-marking {
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #b91c1c;
+  margin: 0 0 12px;
+}
+.report-paper .report-marking:last-child {
+  margin: 16px 0 0;
+}
+.report-title {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-top: 2px solid #0f172a;
+  border-bottom: 1px solid #0f172a;
+  padding: 6px 0;
+  margin: 0 0 8px;
+}
+.report-header > div,
+.report-rows > div {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 8px;
+}
+.report-header dt,
+.report-rows dt {
+  color: #475569;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding-top: 2px;
+}
+.report-header dd,
+.report-rows dd {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.report-header {
+  border-bottom: 1px solid #0f172a;
+  padding-bottom: 8px;
+  margin: 0 0 4px;
+}
+.report-section {
+  margin-top: 14px;
+  break-inside: avoid-page;
+}
+.report-section h2 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+.report-paragraph {
+  margin: 4px 0 4px 1.2rem;
+  white-space: pre-wrap;
+}
+.report-rows {
+  margin: 0 0 0 1.2rem;
+}
+.report-table {
+  width: calc(100% - 1.2rem);
+  margin-left: 1.2rem;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.report-table th,
+.report-table td {
+  border: 1px solid #cbd5e1;
+  padding: 3px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+.report-table th {
+  background: #e2e8f0;
+  font-weight: 600;
+}
+.report-seal {
+  margin-top: 16px;
+  border-top: 1px dashed #64748b;
+  padding-top: 6px;
+  font-size: 10px;
+  color: #475569;
+  word-break: break-all;
+}
+
+/* ------------------------------------------------------------------ narrow screens */
+@media screen and (max-width: 640px) {
+  /* Documents: labels above values, wide tables scroll sideways. */
+  .report-paper {
+    padding: 16px 14px;
+    font-size: 11px;
+    overflow-x: auto;
+  }
+  .report-header > div,
+  .report-rows > div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .report-rows,
+  .report-paragraph {
+    margin-left: 0;
+  }
+  .report-table {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .leaflet-control-layers-expanded {
+    max-width: calc(100vw - 40px);
+  }
+
+  /* iOS Safari zooms into any field under 16px on focus. */
+  @supports (-webkit-touch-callout: none) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ print
+   Only #print-root is printed (components/Printable.jsx renders the document there). */
+#print-root {
+  display: none;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    height: auto;
+  }
+  #root {
+    display: none !important;
+  }
+  #print-root {
+    display: block;
+  }
+  #print-root .report-paper {
+    background: #fff;
+    max-width: none;
+    padding: 0;
+  }
+}

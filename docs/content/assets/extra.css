@@ -1,0 +1,33 @@
+/* KRAKEN-Trust tactical colours */
+:root > * {
+  --md-primary-fg-color: #0b1520;
+  --md-primary-fg-color--light: #12202e;
+  --md-primary-fg-color--dark: #070b10;
+  --md-primary-bg-color: #e2f7ff;
+  --md-accent-fg-color: #00e5ff;
+}
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0a0f15;
+  --md-default-fg-color--light: #a3b3c2;
+  --md-typeset-a-color: #38d9f5;
+}
+.md-header, .md-tabs { background-color: #0b1520; }
+.md-typeset h1 { font-weight: 600; letter-spacing: .01em; }
+.md-typeset h2 { border-bottom: 1px solid rgba(0, 229, 255, .18); padding-bottom: .2em; }
+
+/* Legend swatches: <span class="sw" style="--c:#ff3b3b"></span> */
+.sw { display: inline-block; width: .9em; height: .9em; border-radius: 50%; background: var(--c); vertical-align: -.1em;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.5); margin-right: .2em; }
+.sw.ring { background: transparent; box-shadow: inset 0 0 0 3px var(--c); }
+.sw.sq { border-radius: 2px; }
+.sw.diamond { border-radius: 1px; transform: rotate(45deg) scale(.8); }
+.sw.line { width: 1.8em; height: 0; border-radius: 0; border-top: 2px dashed var(--c); background: none; box-shadow: none; vertical-align: .25em; }
+.sw.line.solid { border-top-style: solid; }
+.sw.area { border-radius: 2px; background: color-mix(in srgb, var(--c) 25%, transparent); box-shadow: inset 0 0 0 1px var(--c); }
+.sw.arrow { width: 0; height: 0; border-radius: 0; background: none; box-shadow: none; border-left: .45em solid transparent;
+            border-right: .45em solid transparent; border-bottom: .9em solid var(--c); }
+
+/* "Où le trouver" breadcrumb boxes */
+.where { font-size: .75rem; color: var(--md-default-fg-color--light); border-left: 3px solid #00e5ff; padding: .2em .8em; margin: .5em 0 1em; }
+.md-typeset table:not([class]) th { background: rgba(0, 229, 255, .08); }
+.md-typeset .grid.cards > ul > li { border-color: rgba(0, 229, 255, .25); }

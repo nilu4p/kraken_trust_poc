@@ -1,0 +1,4 @@
+# Test-only dependencies (never in the production image): make test / make venv.
+-r requirements.txt
+pytest==9.1.1
+fakeredis==2.26.2

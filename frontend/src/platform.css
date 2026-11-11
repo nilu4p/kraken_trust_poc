@@ -1,0 +1,111 @@
+/* KRAKEN-Trust — map symbols of the maritime SOC (the shared look is in index.css). */
+
+.ais-vessel-marker {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: var(--marker, #3dff8a);
+  border: 2px solid #070b10;
+  box-shadow: 0 0 6px var(--marker, #3dff8a);
+}
+
+.dark-vessel-marker {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.dark-vessel-marker .core {
+  position: absolute;
+  inset: 9px;
+  border-radius: 9999px;
+  background: var(--marker, #ff3b3b);
+  border: 2px solid #070b10;
+  box-shadow: 0 0 10px var(--marker, #ff3b3b);
+}
+
+/* The halo is purely decorative: it must not steal clicks from the marker. */
+.dark-vessel-marker .pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid var(--marker, #ff3b3b);
+  animation: dark-vessel-pulse 1.6s ease-out infinite;
+  pointer-events: none;
+}
+
+.dark-vessel-marker.is-selected .core {
+  inset: 7px;
+  border-color: #ffffff;
+}
+
+.dark-vessel-marker.is-dimmed {
+  opacity: 0.45;
+}
+
+.dark-vessel-marker.is-dimmed .pulse {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes dark-vessel-pulse {
+  0% {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dark-vessel-marker .pulse {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* VIIRS night lights: opaque black tiles where it is dark. "screen" keeps only the lights
+   (black adds nothing), brightened so that a single lit boat stands out. */
+.night-lights-tiles {
+  mix-blend-mode: screen;
+  filter: brightness(1.8) contrast(1.4);
+}
+
+/* Display modes (day / night / high contrast). Markers stay readable. */
+.map-mode-nvg .leaflet-tile-pane {
+  filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(3) brightness(0.75) contrast(1.2);
+}
+
+.map-mode-contrast .leaflet-tile-pane {
+  filter: grayscale(1) brightness(0.55) contrast(1.6);
+}
+
+.map-mode-contrast .leaflet-overlay-pane path {
+  stroke-width: 3px;
+}
+
+.dark-vessel-marker.no-pulse .pulse {
+  animation: none;
+  opacity: 0;
+}
+
+.ais-vessel-marker.is-listed {
+  width: 20px;
+  height: 20px;
+  border: 4px solid var(--ring, #ff3b3b);
+  box-shadow: 0 0 8px var(--ring, #ff3b3b);
+}
+
+/* Symbol size (Carte tab). Leaflet positions the icon element itself: scale its content only. */
+.marker-scale-small .leaflet-marker-icon > * {
+  transform: scale(0.75);
+}
+
+.marker-scale-large .leaflet-marker-icon > * {
+  transform: scale(1.35);
+}

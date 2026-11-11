@@ -1,0 +1,162 @@
+site_name: KRAKEN-Trust — Base de connaissances
+site_description: Concepts, calculs, légende, menus et procédures de la plateforme de surveillance de la ZEE de Guyane
+site_url: http://localhost:8080/docs/
+docs_dir: content
+exclude_docs: |
+  includes/
+validation:
+  links:
+    anchors: warn
+    unrecognized_links: warn
+copyright: KRAKEN-Trust · Space4Yana — documentation interne
+
+theme:
+  name: material
+  language: fr
+  font: false            # no Google Fonts: the CSP only allows the site itself
+  icon:
+    logo: material/radar
+  favicon: assets/favicon.svg
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Passer en thème clair
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Passer en thème sombre
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.tooltips
+
+extra_css:
+  - assets/extra.css
+
+plugins:
+  - search:
+      lang: fr
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.mark
+  - pymdownx.caret
+  - pymdownx.tilde
+  - pymdownx.snippets:
+      base_path: [content]
+      auto_append:
+        - includes/abbreviations.md
+
+nav:
+  - Accueil: index.md
+  - Prise en main:
+      - prise-en-main/index.md
+      - Index des écrans: prise-en-main/index-ecrans.md
+      - Rôles et droits: prise-en-main/roles.md
+      - Parcours type d'un opérateur: prise-en-main/parcours.md
+      - Installation et mise en service: mise-en-service/index.md
+      - Obtenir les clés des services: mise-en-service/comptes-externes.md
+  - Guides pratiques:
+      - guides/index.md
+      - Prise et fin de quart: guides/quart.md
+      - Investiguer une cible radar: guides/investiguer-cible.md
+      - Enquêter sur un navire AIS: guides/enqueter-navire.md
+      - Réagir à une notification: guides/notification.md
+      - Préparer une patrouille: guides/patrouille.md
+      - Constituer un dossier judiciaire: guides/dossier-judiciaire.md
+      - Rendre compte au commandement: guides/rendre-compte.md
+      - Régler la détection: guides/regler-detection.md
+      - Faire une démonstration: guides/demonstration.md
+  - Situation (carte):
+      - situation/index.md
+      - Chronologie et rejeu: situation/chronologie.md
+      - Graphe d'entités: situation/graphe.md
+      - Zones de surveillance dessinées: situation/zones.md
+      - Légende de la carte: situation/legende.md
+      - Panneau latéral: situation/panneau-lateral.md
+      - Rapport d'activité de la ZEE: situation/activite.md
+      - Fiche cible radar: situation/fiche-cible.md
+      - Fiche navire AIS (fusion): situation/fiche-navire.md
+      - Dossier du point (clic droit): situation/dossier-point.md
+      - Lancer un scan: situation/scan.md
+  - Incidents:
+      - incidents/index.md
+      - Cycle de vie: incidents/cycle-de-vie.md
+      - Sévérités, SLA et indicateurs: incidents/severite-sla.md
+      - Types d'incident: incidents/types.md
+      - Dossier d'incident: incidents/dossier.md
+  - Commandement:
+      - commandement/index.md
+      - Aide à la décision: commandement/decision.md
+      - Moyens d'intervention: commandement/moyens.md
+      - Rapports (CR, SITREP): commandement/rapports.md
+  - Preuves et audit:
+      - Preuves: preuves.md
+      - Journal d'audit: audit.md
+  - Administration:
+      - administration/index.md
+      - Clés & intégrations: administration/cles.md
+      - Paramètres opérationnels: administration/parametres.md
+      - Liste de surveillance: administration/surveillance.md
+      - Navires autorisés (licences): administration/autorises.md
+      - Catalogue, VMS et santé: administration/catalogue.md
+      - Sources personnalisées: administration/sources-personnalisees.md
+      - Supervision technique: administration/supervision.md
+  - Moteur et calculs:
+      - moteur/index.md
+      - Détection radar (SAR / CFAR): moteur/detection-sar.md
+      - Indice de fiabilité: moteur/fiabilite.md
+      - Corrélation radar / AIS: moteur/correlation-ais.md
+      - Score de risque: moteur/risque.md
+      - Règles 24/7: moteur/regles.md
+      - Section Règles et règles sur mesure: moteur/regles-page.md
+      - Fusion multi-sources: moteur/fusion.md
+      - Corroboration multi-capteurs: moteur/corroboration.md
+      - Détection optique et nocturne: moteur/detection-multicapteur.md
+      - Avis de l'IA (xView3): moteur/ia.md
+  - Référence:
+      - Sources de données: sources.md
+      - Notifications: notifications.md
+      - Sécurité: securite.md
+      - Exploitation (make): exploitation.md
+      - Architecture technique: architecture.md
+      - Configuration (variables): mise-en-service/configuration.md
+      - Données conservées: donnees.md
+      - API: api.md
+      - Glossaire: glossaire.md
+      - FAQ et dépannage: faq.md

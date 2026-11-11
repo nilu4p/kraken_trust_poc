@@ -1,0 +1,10 @@
+# Keep secrets and local artefacts out of the image build context.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+node_modules/
+dist/
+.git/

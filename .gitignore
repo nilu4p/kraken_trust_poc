@@ -1,0 +1,72 @@
+# =====================================================================
+# KRAKEN-Trust — never commit secrets, evidence or operational data.
+# =====================================================================
+
+# --- Secrets & configuration ------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.enc
+master.key
+api_credentials*
+
+# --- Runtime data (volumes) -------------------------------------------
+/keys/
+/data/
+/preuves/
+/cache/
+/backups/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.tar.gz
+kraken-*.tar.gz
+
+# --- Logs, outputs, local artefacts -----------------------------------
+# Celery / kombu local broker bookkeeping (exchange bindings, worker host names).
+backend/control/
+celerybeat-schedule*
+*.log
+*.out
+error.txt
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# --- Environments & builds --------------------------------------------
+.venv/
+venv/
+kraken-poc_env/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# --- Model weights (xView3, detectors) --------------------------------
+*.pth
+*.pt
+*.onnx
+*.ckpt
+
+# --- Editors / OS -----------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# MkDocs build output
+docs/site/
+
+# Docker secrets (PostgreSQL / Redis passwords)
+/secrets/

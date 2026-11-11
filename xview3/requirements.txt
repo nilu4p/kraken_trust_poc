@@ -1,0 +1,8 @@
+# torch / torchvision come from the PyTorch CPU index, pytorch-toolbelt is installed
+# without its dependencies (see Dockerfile): it requires the GUI build `opencv-python`,
+# which shadows the headless one and needs X11 libraries (libxcb) absent from the image.
+timm==0.4.12
+opencv-python-headless==4.10.0.84
+scipy==1.14.1
+omegaconf==2.3.0
+numpy<2.3

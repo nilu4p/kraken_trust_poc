@@ -1,0 +1,23 @@
+# Keep secrets and local artefacts out of the image build context.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.enc
+*.db
+*.db-*
+*.tar.gz
+*.log
+*.out
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+keys/
+data/
+preuves/
+cache/
+backups/
+.git/
